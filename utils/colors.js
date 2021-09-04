@@ -6,6 +6,7 @@ export const colors = {
         black: '#000',
         white: '#fff',
         clara:'#FAFAFA',
+        botao:'#BDBDBD',
     },
     dark: {
         red: '#8b0000',

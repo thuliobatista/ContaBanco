@@ -31,6 +31,8 @@ const styles =({color,size}) => StyleSheet.create({
         alignItems:'center',
         backgroundColor:color,
         borderRadius:150,
+        margin: 4,
+        padding:4,
 
     },
 });

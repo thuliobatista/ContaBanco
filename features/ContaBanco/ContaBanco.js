@@ -5,104 +5,134 @@ import { colors } from '../../utils/colors';
 import {sizes} from '../../utils/sizes';
 import MyButton from '../../components/button/MyButton';
 
+  const ContaBanco = ({size,orange}) =>{
 
+    
+    //Nome e Idade
+    const [nome, setNome] = useState("Digite seu Nome");
+    const [idade, setIdade] = useState("Digite sua Idade");
 
-const ContaBanco = ({size,orange}) =>{
+    //Genero
+    const [genero, setValue] = useState("");
 
-  const [count, setCount] = useState(0);
-  const onPress = () => setCount(prevCount => prevCount + 1);
+    //Estudante
+    const [entrada, setEntrada] = useState(false);
+    const interruptor = () => setEntrada(previousState => !previousState);
 
+    //Limite
 
-  const [nome, setNome] = useState('');
-  const [idade, setIdade] = useState('');
+    const[limite,setLimimite] = useState('0');
 
+    
+    const EnviarDados = () =>{
 
-  const [value, setValue] = useState("");
+      useEffect(() => {
 
+      if(nome == "Digite seu Nome" ||idade == "Digite sua Idade" ||genero == false || entrada ==false || limite == 0){
 
-  const [entrada, setEntrada] = useState(false);
-  const interruptor = () => setEntrada(previousState => !previousState);
+        alert('Digitite todos os campos')
 
+      }else{
 
-  const add = ( ) =>{
+        alert('Nome: '+ nome + '/Idade:' + idade + '/Genero: ' + genero + '/limite: ' + limite + '/Estudante: ' + entrada );
 
-    console.log("teste");
+      }
 
+    });
   }
+
+    const ResetarDados = ( ) =>{
+
+        setNome("Digite seu nome " );
+        setIdade("Digite sua Idade ");
+        setValue("");
+        setEntrada(false);
+        setLimimite('0');
+    }
 
  return(
 
       <View style={styles({}).container} >
-          
-      <View style={styles({}).box1}>
 
-          <Text style={styles({ size }).text} >Cadastro do Banco</Text>
-          
-          <Text style={styles({ size }).text} >Nome:</Text>
+        <View style={styles({}).box1}>
+        <Text style={styles({ size }).text} >Cadastro do Banco</Text>
+        </View>
+
+        <View style={styles({}).box2}>
+        <Text style={styles({ size }).text} >Nome:</Text>
           <TextInput
-            style={ [styles({ orange }).textInput, {fontSize: 10}] }
-            onChangeText={() => console.log("Digitei")}
-            placeholder="Digite seu nome"
+            style={ [styles({ orange }).textInput, {fontSize: 15}] }
+            onChangeText={setNome}
+            value={nome}
           />
+
           <Text style={styles({ size }).text} >Idade:</Text>
           <TextInput
             style={[styles({ orange }).textInput, {fontSize: 15}]}
-            onChangeText={() => console.log("Digitei")}
-            placeholder="Digite sua idade"
+            onChangeText={setIdade}
+            value={idade}
           />
+        </View>
 
-          <Text style={styles({ size }).text} >Genero:</Text>
+
+        <View style={styles({}).box3}>
+        <Text style={styles({ size }).text} >Genero:</Text>
           <Picker
             style={styles.Picker}
-            value={value}
+            value={genero}
             onValueChange={(itemValue, itemIndex) => setValue(itemValue)}
-          >
+          > 
+            <Picker.Item label="Escolha seu Genero" value="Vasio" />
             <Picker.Item label="Masculino" value="Masculino" />
             <Picker.Item label="Feminino" value="Feminino" />
             </Picker>
+        </View>
 
-            <Text style={styles({ size }).text} >limite:</Text>
+        <View style={styles({}).box4}>
+        <Text style={styles({ size }).text} >limite:{limite}</Text>
             < Slider 
-              style = { { width : 400} } 
+              style = { { width : 400, height: 40} } 
               minimumValue = { 0 } 
-              maximumValue = { 3000 } 
+              maximumValue = { 3000} 
               minimumTrackTintColor = "#2E2EFE" 
               maximumTrackTintColor = "#2E2EFE" 
+              value={limite}
+              onValueChange={(limite) => setLimimite(parseInt(limite))}
               
             />
+        </View>
 
-            <Text style={styles({ size }).text} >Estudante:</Text>
-            <Switch
+        <View style={styles({}).box5}>
+        <Text style={styles({ size }).text} >Estudante:</Text>
+        <Switch
               trackColor={{ false: colors.dark.red, true: colors.dark.green}}
               onValueChange={interruptor}
               value={entrada}
             />
+            
+        </View>
 
+        <View style={styles({}).box6}>
+        
               <MyButton
+                
                 texto="Abrir conta"
-                onPress={()=>add}
-                color={colors.basic.red}
-                size={sizes.medium}
+                onPress={EnviarDados}
+                color={colors.basic.botao}
+                size={sizes.font.medium}
 
               />
+              <br/>
+
               <MyButton
-              texto="Abrir conta"
-              onPress={add}
-              color={colors.basic.red}
-              size={sizes.medium}
-
-                
+              texto="Resetar"
+              onPress={ResetarDados}
+              color={colors.basic.botao}
+              size={sizes.font.medium}
+              
               /> 
-
-          
-            
-          
-      </View>
-
-      <View style={styles({}).box2}>         
-      </View>      
-      </View>
-      
+        </View>
+    </View>
     );
 
 }
@@ -116,21 +146,45 @@ const styles = ({ size, orange }) => StyleSheet.create({
     backgroundColor: colors.basic.clara,
   }, 
 
+ 
+  box1: {
+    backgroundColor: colors.basic.clara,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  box2:{
+    backgroundColor: colors.basic.clara,
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+  },
+  box3:{
+    backgroundColor: colors.basic.clara,
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+  },
+  box4:{
+    backgroundColor: colors.basic.clara,
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    
+  },
+  box5:{
+    backgroundColor: colors.basic.clara,
+    justifyContent: 'flex-start',
+   alignItems: 'stretch',
+  },
+  box6:{
+    backgroundColor: colors.basic.clara,
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+   padding:4,
+   margin:4,
+  },
+
   text: {
     fontSize: size,
     fontWeight: '500',
-  },
-  box1: {
-    flex: 2,
-    backgroundColor: colors.dark.clara,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-  },
-  box2:{
-    flex: 2,
-    backgroundColor: colors.dark.clara,
-    justifyContent: 'center',
-    alignItems: 'center',
+    
   },
   textInput: {
     borderWidth: sizes.spacing.small,
